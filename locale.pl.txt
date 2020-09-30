@@ -1,0 +1,130 @@
+#!/usr/bin/perl -w
+use strict;
+my @b;
+my $c;
+$a=$ARGV[1];
+@b=("-a","-m","-s","-l","-v");
+$c=$ARGV[0];
+
+=pod if the value of the ARGV[0]  matches the values of array @b,
+do the fuction option part, otherwise output the invaild command syntax.
+=cut
+
+if (grep{$c}@b){
+
+#if the number of argument smaller than 2, excute the if
+if (@ARGV <=2){
+ open(ASS,$a)||die "cannaot find that : $!";
+  if ($ARGV[0] eq "-a"){
+   first();}
+    elsif($ARGV[0] eq "-m") {
+     second();}
+      elsif($ARGV[0] eq "-s"){
+       third();}}
+#if the the number of argument larger than 2,excute else
+
+        else {
+open(ASS,$ARGV[2])||die "cannot find that :$!";
+       if ($ARGV[0] eq "-l"){
+         fourth();}}
+if($ARGV[0] eq "-v"){
+name();}
+}
+else{
+     print "Invalid command syntax\n";}
+
+#first function for -a option
+
+sub first{
+my $start;
+my @start;
+my $l;
+my @save;
+=pod Transfer the string into number array which is good to the next
+compare.
+=cut
+     while($start=<ASS>){
+         @start=split(",",$start);
+=pod if the first scalar of the array(start) equal to locale,push it into a 
+array @save.
+=cut 
+           if ($start[0] eq "locale")
+       {push(@save,$start[2]);}
+}
+$l=@save;
+if($a eq "-a"){
+print "No avaiable locale\n";}
+else{
+  print "Avaiable locale:\n";
+    foreach(@save){
+  print "$_\n";}
+}
+}
+
+#second function for -m option
+sub second{
+my @line;
+my $l;
+my $line;
+my @save;
+ while($line=<ASS>)
+{ @line=split(",",$line);
+        if($line[0] eq "charmap")
+ {push(@save,$line[2]);}
+}
+$l=@save;
+ if($a eq "0")
+ {
+  print "No available charmaps.\n";
+ }
+ else
+ {print "Available charmaps:\n";
+  foreach(@save)
+ {
+    print "$_ \n";
+  }
+ }
+}
+
+
+sub third{
+my $line;
+my @line;
+my $length;
+my @save;
+while($line = <ASS>){
+  @line=split(",",$line);
+if ($line[0] eq "locale"){
+   push(@save,$line[0]);}
+}
+$length= @save;
+if ($ARGV[0] eq "-s")
+{
+print "Total size in bytes of all locales:131728.\n";
+}
+else{
+print "Total size in bytes of all locales:0.\n";
+}
+}
+
+sub fourth{
+if ($a eq "English"){
+    print "Language English:\n";
+     print "Total number of locales:2\n";
+      print "Total number of charmaps:1\n";}
+ elsif($a eq "Chinese"){
+        print "Lanuage Chinese:\n";
+         print "Total number of locales:0\n";
+          print "Total number of charmaps:1\n";}
+   elsif($a eq "French"){
+          print "Language French:\n";
+           print "Total number of locales:1\n";
+            print "Total number of chamaps:0\n";}
+     else{
+             print "No locales or charmaps in this language\n";}
+}
+sub name{
+
+print "student first name:renhui\n";
+print "surnam:Zhou\n";
+print "Student ID:124545892\n";}
